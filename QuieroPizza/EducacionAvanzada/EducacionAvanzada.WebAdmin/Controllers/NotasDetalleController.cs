@@ -63,6 +63,61 @@ namespace EducacionAvanzada.WebAdmin.Controllers
             return View(notasDetalle);
         }
 
+        public ActionResult Editar(int Id)
+        {
+            var notaDetalle = _notaBL.ObtenerNotasDetalleporId(Id);
+            var alumnos = _alumnosBL.ObtenerAlumnos();
+            var materias = _MateriaBL.Obtenermaterias();
+
+
+            ViewBag.AlumnoId = new SelectList(alumnos, "Id", "Nombre", notaDetalle.AlumnoId);
+            ViewBag.MateriaId = new SelectList(materias, "Id", "Descripcion", notaDetalle.MateriaId);
+          
+
+
+            return View(notaDetalle);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(NotasDetalle notaDetalle)
+        {
+            var alumnos = _alumnosBL.ObtenerAlumnos();
+            var materias = _MateriaBL.Obtenermaterias();
+
+            if (ModelState.IsValid)
+            {
+
+
+                if (notaDetalle.AlumnoId == 0 || notaDetalle.MateriaId == 0)
+                {
+                    if (notaDetalle.AlumnoId == 0)
+                    {
+                        ModelState.AddModelError("Alumno", "Seleccione un Alumno");
+                    }
+
+                    if (notaDetalle.MateriaId == 0)
+                    {
+                        ModelState.AddModelError("Materia", "Seleccione una Materia");
+                    }
+
+                    ViewBag.AlumnoId = new SelectList(alumnos, "Id", "Nombre");
+                    ViewBag.MateriaId = new SelectList(materias, "Id", "Descripcion");
+
+                    return View(notaDetalle);
+                }
+
+                _notaBL.GuardarNotasDetalle(notaDetalle);
+
+                return RedirectToAction("Index");
+            }
+
+            ViewBag.AlumnoId = new SelectList(alumnos, "Id", "Nombre");
+            ViewBag.MateriaId = new SelectList(materias, "Id", "Descripcion");
+            return View(notaDetalle);
+        }
+
+
+
         public ActionResult Eliminar(int id)
         {
             var notaDetalle = _notaBL.ObtenerNotasDetalleporId(id);

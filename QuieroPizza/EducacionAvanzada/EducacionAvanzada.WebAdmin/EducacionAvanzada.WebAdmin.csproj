@@ -204,6 +204,7 @@
     <Content Include="Views\Materias\Editar.cshtml" />
     <Content Include="Views\Materias\Eliminar.cshtml" />
     <Content Include="Views\NotasDetalle\Eliminar.cshtml" />
+    <Content Include="Views\NotasDetalle\Editar.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
