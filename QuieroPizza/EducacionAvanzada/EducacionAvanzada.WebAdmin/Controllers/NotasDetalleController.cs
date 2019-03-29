@@ -108,7 +108,7 @@ namespace EducacionAvanzada.WebAdmin.Controllers
 
                 _notaBL.GuardarNotasDetalle(notaDetalle);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Index",new { id = notaDetalle.NotaId });
             }
 
             ViewBag.AlumnoId = new SelectList(alumnos, "Id", "Nombre");

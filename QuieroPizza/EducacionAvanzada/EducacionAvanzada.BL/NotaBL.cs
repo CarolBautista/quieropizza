@@ -15,6 +15,9 @@ namespace EducacionAvanzada.BL
         {
             _contexto = new Contexto();
             ListadeNotas = new List<Notas>();
+         
+
+
         }
         public List<Notas> ObtenerNotas()
         {
@@ -81,7 +84,24 @@ namespace EducacionAvanzada.BL
      
             notasDetalle.NotaFinal = ((notasDetalle.PrimerParcial + notasDetalle.SegundoParcial + notasDetalle.TercerParcial + notasDetalle.CuartoParcial) / 4);
 
-            _contexto.NotasDetalle.Add(notasDetalle);
+
+            if (notasDetalle.Id == 0)
+            {
+                _contexto.NotasDetalle.Add(notasDetalle);
+
+            }
+            else
+            {
+                var notaDetalleExistente = _contexto.NotasDetalle.Find(notasDetalle.Id);
+
+                notaDetalleExistente.AlumnoId = notasDetalle.AlumnoId;
+                notaDetalleExistente.MateriaId = notasDetalle.MateriaId;
+                notaDetalleExistente.PrimerParcial = notasDetalle.PrimerParcial;
+                notaDetalleExistente.SegundoParcial = notasDetalle.SegundoParcial;
+                notaDetalleExistente.TercerParcial = notasDetalle.TercerParcial;
+                notaDetalleExistente.CuartoParcial = notasDetalle.CuartoParcial;
+                notaDetalleExistente.NotaFinal = notasDetalle.NotaFinal;
+            }
 
             var nota = _contexto.Notas.Find(notasDetalle.NotaId);
             nota.NotaFinal = nota.NotaFinal + notasDetalle.NotaFinal;
