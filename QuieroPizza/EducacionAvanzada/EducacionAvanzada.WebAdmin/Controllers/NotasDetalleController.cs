@@ -106,7 +106,7 @@ namespace EducacionAvanzada.WebAdmin.Controllers
                     return View(notaDetalle);
                 }
 
-                _notaBL.GuardarNotasDetalle(notaDetalle);
+                _notaBL.GuardarNotasDetalle(notaDetalle, true);
 
                 return RedirectToAction("Index",new { id = notaDetalle.NotaId });
             }

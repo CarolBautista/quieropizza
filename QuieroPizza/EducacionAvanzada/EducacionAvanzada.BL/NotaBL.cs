@@ -77,7 +77,7 @@ namespace EducacionAvanzada.BL
             return nota;
         }
 
-        public void GuardarNotasDetalle(NotasDetalle notasDetalle)
+        public void GuardarNotasDetalle(NotasDetalle notasDetalle, bool editar = false)
         {
             
             var alumno = _contexto.Notas.Find(notasDetalle.AlumnoId);
@@ -85,7 +85,7 @@ namespace EducacionAvanzada.BL
             notasDetalle.NotaFinal = ((notasDetalle.PrimerParcial + notasDetalle.SegundoParcial + notasDetalle.TercerParcial + notasDetalle.CuartoParcial) / 4);
 
 
-            if (notasDetalle.Id == 0)
+            if (editar == false)
             {
                 _contexto.NotasDetalle.Add(notasDetalle);
 
